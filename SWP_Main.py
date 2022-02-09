@@ -3,28 +3,6 @@ import re
 import matplotlib.pyplot as plt
 
 from babel.numbers import format_currency
-# format_currency(5433422, 'INR', locale='en_IN', currency_digits =False)
-
-
-'''
-1) Subtract withdrawal from Balance at the Begin,
-2) Calculate interest earned on the subtracted withdrawal.
-3) Add interest earned to Subtracted Balance.
-4) For next round increament withdrawal amount by inflation rate.
-5) Repeat process.
-
-Example:
-SWP_Amount = 80000
-Investment = 30000000
-Investment_Period = 30
-RoR = 12
-Inflation = 7
-
-1) 30000000 - 80000 = 29920000
-2) (2992000*0.12) = 3590400
-3) 3590400/12 = 299200
-4) 299200 + 29920000 = 30219200 
-'''
 
 class SWPCalculator:
     
