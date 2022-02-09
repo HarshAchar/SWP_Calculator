@@ -1,2 +1,2 @@
 # SWP_Calculator
-Calculates your systematic investment plan
+Calculates your systematic withdrawal plan
