@@ -5,14 +5,11 @@ const API_URL = "./Example_Response.json";
 async function createChart() {
   let ResponseFromAPI = await fetch(API_URL);
   let JSON_Res = await ResponseFromAPI.json();
-  let JSON_Data1 = JSON.parse(JSON_Res.output.data1);
-  let YAxis = JSON_Data1.map(({ Balance_at_End }) => ({ Balance_at_End }));
-
-  // Define X and Y values
-  YAxis = YAxis.map((a) => a.Balance_at_End);
+  let JSON_Data1 = JSON.parse(JSON_Res.output.data);
+  let YAxis = JSON_Data1.map(JD1 => JD1['Balance at End'])
   let XAxis = YAxis.length;
   XAxis = [...Array(XAxis).keys()];
-  
+
   // Define chart properties
   const labels = XAxis; // Adding X labels
   const Init_Invest_Amount = JSON_Data1[0]["Balance at Begin"];
@@ -35,7 +32,7 @@ async function createChart() {
     data: data,
     options: {
       plugins: {
-        tooltip: {
+        tooltip: { // Customize tooltip
           callbacks: {
             title: (context)=> {
               var title_string = 'Year: '+ context[0]['label'];
