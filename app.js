@@ -7,10 +7,12 @@ async function createChart() {
   let JSON_Res = await ResponseFromAPI.json();
   let JSON_Data1 = JSON.parse(JSON_Res.output.data1);
   let YAxis = JSON_Data1.map(({ Balance_at_End }) => ({ Balance_at_End }));
+
+  // Define X and Y values
   YAxis = YAxis.map((a) => a.Balance_at_End);
   let XAxis = YAxis.length;
-  XAxis = [...Array(XAxis).keys()]; // Array.from({length: XAxis}, (_, index) => index + 1);
-
+  XAxis = [...Array(XAxis).keys()];
+  
   // Define chart properties
   const labels = XAxis; // Adding X labels
   const Init_Invest_Amount = JSON_Data1[0]["Balance at Begin"];
