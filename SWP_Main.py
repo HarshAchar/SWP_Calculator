@@ -74,8 +74,8 @@ class SWPCalculator:
             # return {'data':data,'data_df':data_df,'ending year':ending_year,'ending month':ending_month}
             return {'data':data.to_json(orient="records", double_precision=1),
                     'data_df':data_df.to_json(orient="records", double_precision=1),
-                    'ending year':ending_year,
-                    'ending month':ending_month}
+                    'ending year':str(ending_year),
+                    'ending month':str(ending_month)}
                         
         except:
             return {"Error":"Error in execution"}
