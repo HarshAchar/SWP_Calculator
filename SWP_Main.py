@@ -37,7 +37,7 @@ class SWPCalculator:
             for year in range(1, self.investment_period+1):
                 for month in range(1,13):
                     data_dict = {}
-                    data_dict['Year'] = year
+                    data_dict['Year'] = year-1
                     data_dict['Month'] = month
                     data_dict['Balance at Begin'] = current_balance
                     data_dict['Withdrawal'] = current_swp_amount
