@@ -8,15 +8,27 @@
     <link rel="stylesheet" href="app.css">
 </head>
 <body>
+    <h1>Systematic Withdrawal Plan</h1>
+
     
+    <button>Calculate!</button>
+
+    <div id="accrBal"></div>
     <!--SWP Chart container-->
-    <div class="chartCard">
         <div class="chartBox">
             <!--Canavas-->
             <canvas id="myChart"></canvas>
         </div>
+
+    <div id="yearlySpread"></div>
+
+    <div class="det-table">
+        <div id="table">
+            <!--table renders here-->
+        </div>
     </div>
-    
+
+
     <!--SWP Chart Rendering-->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="app.js"></script>
