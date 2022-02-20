@@ -1,21 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 * {
     margin: 0;
-    padding: 0;
-    font-family: sans-serif;
+    padding-bottom: 0.5px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    text-align: center;
   }
-  .chartCard {
-    width: 55vw;
-    height: calc(75vh - 60px);
-    background: rgba(75, 192, 192, 0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+
+  h1 {
+      text-align: center;
+      background-color: rgba(255, 0, 0, 0.4);
+      padding: 5px;
   }
+
   .chartBox {
-    width: 700px;
+    width: 1050px;
+    padding: 5px;
+    border-radius: 5px;
+    border: solid 2px rgb(255, 255, 255);
+    background: white;
+    margin: auto;
+  }
+
+  body {
+    text-align: center;
+  }
+
+  button {
+      display: inline-block;
+      margin: 5px;
+      padding: 2px 2px;
+      background-color: rgb(255, 99, 132, 0.2);
+      outline: 0;
+      border-radius: 10px;
+      border-color: black;
+  }
+
+  .det-table {
+    width: 1050px;
     padding: 20px;
     border-radius: 20px;
-    border: solid 3px rgba(75, 192, 192, 1);
+    border: solid 2px rgb(255, 255, 255);
     background: white;
+    margin: auto;
+  }
+  #table {
+      display: block;
+      margin-top: 20px;
+      margin: auto;
+  }
+  th, td {
+      border: 1px solid black;
+      padding: 5px;
   }
