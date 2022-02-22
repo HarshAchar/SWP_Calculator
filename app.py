@@ -1,19 +1,22 @@
 # -*- coding: utf-8 -*-
 """
 Created on Tue Feb  8 23:29:59 2022
+Updated on 21-Feb-2022 by HarshAchar
 
-@author: SHANTANU
+@authors: SHANTANU, HarshAchar
+
 """
-
 import json
 import shutil
 import uvicorn
 import SWP_Main as swp
-from fastapi import FastAPI
+from fastapi import FastAPI, Body, Request, Form
+from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
 from fastapi.responses import HTMLResponse
 
 app = FastAPI()
+templates = Jinja2Templates(directory="./")
 
 @app.get("/version")
 async def get_version():
@@ -28,22 +31,22 @@ async def get_version():
     except Exception as ex:
         print('read_root:Error', ex)
         return {'error':ex}
-
-class SWPVariables(BaseModel):
-    swp_amount:int
-    investment:int
-    investment_period:int
-    RoR:int
-    inflation:int
     
 # =============================================================================
 #     
 # =============================================================================
-@app.post("/swp", summary = "to compute SWP calculations")
-async def compute_swp(params: SWPVariables):
-    """
-    
 
+@app.get("/index", response_class=HTMLResponse)
+def write_home(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
+
+# =============================================================================
+#     
+# =============================================================================
+
+@app.post("/swp", summary = "to compute SWP calculations")
+async def compute_swp(request: Request, swp_amount: int = Form(...), investment: int = Form(...), investment_period: int = Form(...), RoR: int = Form(...), inflation: int = Form(...)):
+    """
     Parameters
     ----------
     params : SWPVariables
@@ -56,15 +59,13 @@ async def compute_swp(params: SWPVariables):
     The month till the money lasts.
 
     """
-    
+
     try:
-        
-        
-        swp_object = swp.SWPCalculator(params.swp_amount,
-                                       params.investment,
-                                       params.investment_period,
-                                       params.RoR,
-                                       params.inflation)
+        swp_object = swp.SWPCalculator(swp_amount,
+                                       investment,
+                                       investment_period,
+                                       RoR,
+                                       inflation)
         
         output = swp_object.calculate_swp()
         if output is not None:
@@ -82,4 +83,3 @@ async def compute_swp(params: SWPVariables):
 
 if __name__ == '__main__':
     uvicorn.run(app, host="0.0.0.0", port=8000)
-        

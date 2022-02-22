@@ -4,33 +4,363 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Systematic Withdrawal Plan</title>
-    <link rel="stylesheet" href="app.css">
+    <title>SWP - Systematic Withdrawal Plan</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+            
+        * {
+            margin: 0;
+            padding-bottom: 0.5px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        body {
+            overflow-y: scroll;
+            text-align: center;
+        }
+
+        #swpForm {
+            width: 470px;
+            height: 13rem;
+            margin: auto;
+        }
+
+        fieldset {
+            width: 1000px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+            background-color: #9B4DCA;
+            color: white;
+            padding: 5px;
+            font-size: 25px;
+            font-weight: 400;
+        }
+
+        .form-container {
+            display: grid;
+            grid-template-columns: 255px 150px;
+            grid-template-rows: auto;
+            justify-content: space-between;
+            gap: 0.2rem;
+            margin: 15px;
+        }
+
+        label {
+            justify-self: start;
+        }
+
+        input {
+            border-radius: 7px;
+            border-width: 0.2px;
+            outline: none;
+            border-color: rgba(155, 77, 202, 0.5);
+        }
+
+        .chartBox {
+            width: 65rem;
+            padding: 5px;
+            border-radius: 50px;
+            border: solid 2px rgb(255, 255, 255);
+            background: white;
+            margin: auto;
+        }
+
+        button {
+            border: 0.1rem solid #9b4dca;
+            border-radius: 4px;
+            background-color: white;
+            color: 9b4dca;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 15px;
+            font-weight: 500;
+            height: 30px;
+            text-align: center;
+            text-decoration: none;
+            text-transform: uppercase;
+            white-space: nowrap;
+            margin: 20px;
+        }
+
+        button:visited {
+            border: 0.1rem solid #9b4dca;
+            border-radius: 4px;
+            background-color: white;
+            color: 9b4dca;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 15px;
+            font-weight: 500;
+            height: 30px;
+            text-align: center;
+            text-decoration: none;
+            text-transform: uppercase;
+            white-space: nowrap;
+            margin: 20px;
+        }
+
+        button:hover {
+            border: 0.1rem solid #9b4dca;
+            border-radius: 4px;
+            background-color: #9b4dca;
+            color: white;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 15px;
+            font-weight: 500;
+            height: 30px;
+            text-align: center;
+            text-decoration: none;
+            text-transform: uppercase;
+            white-space: nowrap;
+            margin: 20px;
+        }
+
+        .det-table {
+            width: 900px;
+            padding: 2px;
+            border-radius: 5px;
+            border: solid 2px rgb(255, 255, 255);
+            background: white;
+            margin: auto;
+        }
+
+        #table {
+            margin-top: 20px;
+            margin: auto;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 2px;
+        }
+
+        @media only screen and (max-width: 800px) {
+            .chartBox {
+            width: 35rem;
+            padding: 2px;
+            border-radius: 5px;
+            border: solid 2px rgb(255, 255, 255);
+            background: white;
+            margin: auto;
+            }
+            .det-table {
+            width: 1050px;
+            padding: 2px;
+            border-radius: 5px;
+            border: solid 2px rgb(255, 255, 255);
+            background: white;
+            }
+        }
+
+        @media only screen and (max-width: 650px) {
+            .chartBox {
+            width: 22rem;
+            padding: 5px;
+            border-radius: 5px;
+            border: solid 2px rgb(255, 255, 255);
+            background: white;
+            margin: auto;
+            }
+            .det-table {
+            width: 200px;
+            padding: 2px;
+            border-radius: 5px;
+            border: solid 2px rgb(255, 255, 255);
+            background: white;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Page Header -->
     <h1>Systematic Withdrawal Plan</h1>
 
-    
-    <button>Calculate!</button>
+    <!-- Form -->
+    <form name="swpForm" id="swpForm" action="swp" method="post" enctype="multipart/form-data">
+        <div class="form-container">
+            
+            <!-- Systematic Withdrawal Amount -->
+            <label for="swp_amount">Systematic Withdrawal Amount</label>
+            <input type="number" placeholder="0" min="1" name="swp_amount" oninput="this.value = Math.round(this.value);" value="100000"">
+            
+            <!-- Initial Investment -->
+            <label for="investment">Initial Investment</label>
+            <input type="number" placeholder="0" min="1" name="investment" oninput="this.value = Math.round(this.value);" value="50000000"">
 
-    <div id="accrBal"></div>
-    <!--SWP Chart container-->
-        <div class="chartBox">
-            <!--Canavas-->
-            <canvas id="myChart"></canvas>
+            <!-- Investment Period (Years) -->
+            <label for="investment_period">Investment Period (Years)</label>
+            <input type="number" placeholder="0" min="1" name="investment_period" oninput="this.value = Math.round(this.value);" value="10"">
+
+            <!-- ROR -->
+            <label for="RoR">Rate of Return</label>
+            <input type="number" placeholder="0" min="0" name="RoR" oninput="this.value = Math.round(this.value);" value="15"">
+            
+            <!-- Inflation -->
+            <label for="inflation">Inflation</label>
+            <input type="number" placeholder="0" min="0" name="inflation" oninput="this.value = Math.round(this.value);" value="7"">
+
+            <!-- Currency -->
+            <!--
+                <label for="Currency">Currency</label>
+                <select id="Currency">
+                    <option value="US Dollar">USD</option>
+                    <option value="EURO">EURO</option>
+                    <option value="DHIRAM">DHIRAM</option>
+                    <option value="INR">INR</option>
+                </select>-->
         </div>
 
-    <div id="yearlySpread"></div>
+        <button type="submit">Calculate</button>
+    </form>
+    
+    <div id="accrBal"></div>
+    <!--SWP Chart container-->
+    <div class="chartBox">
+        <!--Canavas-->
+        <canvas id="myChart"></canvas>
+    </div>
 
+    <div id="yearlySpread"></div>
+    <!--SWP Table container-->
     <div class="det-table">
         <div id="table">
             <!--table renders here-->
         </div>
     </div>
 
+    <!--SWP Chart Script-->
+    <script>
+        // Fetch form response
+        document.forms['swpForm'].addEventListener('submit', (event) => {
+            event.preventDefault();
+            fetch(event.target.action, {
+                method: 'POST',
+                body: new URLSearchParams(new FormData(event.target))
+            }).then(resp => resp.json()).then(body => {
+                let JSON_Data1 = JSON.parse(body.output.data);
+                let YAxis = JSON_Data1.map(JD1 => JD1['Balance at End'])
+                let XAxis = YAxis.length;
+                XAxis = Array.from({length: XAxis}, (_, i) => i + 1)
 
-    <!--SWP Chart Rendering-->
+            // Define chart properties
+            const labels = XAxis; // Adding X labels
+            const Init_Invest_Amount = JSON_Data1[0]["Balance at Begin"];
+            const Title_Label = `Balance Plot (Initial Investment: ${commaFormatted(Init_Invest_Amount)})`
+            const data = {
+                labels: labels, // Setting values for the X-Axis
+                datasets: [
+                {
+                    label: [Title_Label], // Serves as 'title' for the chart
+                    fill: true,
+                    backgroundColor: "rgba(155, 77, 202, 0.2)",
+                    borderColor: "#9B4DCA",
+                    data: YAxis, // Setting graph values for the Y-Axis
+                    fill: true,
+                },
+                ],
+            };
+            const config = {
+                type: "line",
+                data: data,
+                options: {
+                responsive: true,
+                plugins: {
+                    tooltip: { // Customize tooltip
+                    callbacks: {
+                        title: (context)=> {
+                        var title_string = 'Month: '+ context[0]['label'];
+                        return title_string;
+                        },
+                        label: (context)=> {
+                        var label_string = 'Balance: '+ context['formattedValue'];
+                        return label_string;
+                        }            
+                    },
+                    }
+                },
+                scales: {
+                    y: { // adds a label for Y axis
+                    title: {
+                        display: true,
+                        text: "← Balance →",
+                        color: "#9B4DCA",
+                    },
+                    },
+                    x: { // adds a label for X axis
+                    title: {
+                        display: true,
+                        text: "← Months →",
+                        color: "#9B4DCA",
+                    },
+                    },
+                },
+                },
+            };
+
+            // Setting table data
+            let headers = ['Year', 'Month', 'Balance at Begin', 'Withdrawal', 'Interest Earned', 'Balance at End'];
+            let tableRows = JSON.parse(body.output.data_df);
+            let table = document.createElement('table');
+            let headerRow = document.createElement('tr');
+
+            // Capturing button elements
+            let btnGet = document.querySelector('button');
+            let myTable = document.querySelector('#table');
+            if(myTable){
+                document.querySelector('#table').innerHTML = ""
+            }
+            // ADDING CHART AND TABLE 
+            // Get results on Click event
+                
+                // Add Chart description
+                document.getElementById('accrBal').textContent = 'Accrued balance factoring interest rates, inflation and expenditure';
+                // Add Chart
+                let chartStatus = Chart.getChart("myChart");
+                if (chartStatus != undefined) {
+                    chartStatus.destroy();
+                }
+                const myChart = new Chart(document.getElementById("myChart"), config);
+                document.querySelector('.chartBox').style.borderColor = 'rgba(155, 77, 202, 0.5)';
+                // Adding table
+                // Add Table description
+                document.getElementById('yearlySpread').textContent = 'Detailed monthly spread';
+                document.getElementById('yearlySpread').style.marginTop = '15px'
+                // Adding headers
+                headers.forEach(headerText => {
+                    let header = document.createElement('th');
+                    let textNode = document.createTextNode(headerText);
+                    header.appendChild(textNode);
+                    headerRow.appendChild(header);
+                });
+                table.appendChild(headerRow);
+                // Adding rows
+                tableRows.forEach(emp => {
+                    let row = document.createElement('tr');
+                    Object.values(emp).forEach(text => {
+                        let cell = document.createElement('td');
+                        let textNode = document.createTextNode(text);
+                        cell.appendChild(textNode);
+                        row.appendChild(cell);
+                    })
+                    table.appendChild(row);
+                });
+                myTable.appendChild(table);
+                // Centering the table
+                document.querySelector("table").style.margin = "auto";
+                // Comma string function
+                function commaFormatted(x) {
+                    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                }
+
+            })
+        });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="app.js"></script>
 </body>
 </html>
