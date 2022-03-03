@@ -1,4 +1,5 @@
-﻿pandas
+pandas
+gunicorn==19.9.0
 Babel==2.8.0
 uvicorn==0.17.4
 fastapi==0.63.0
