@@ -81,5 +81,5 @@ async def compute_swp(request: Request, swp_amount: int = Form(...), investment:
 # 
 # =============================================================================
 
-if __name__ == '__main__':
-    uvicorn.run(debug=True)
+# if __name__ == '__main__':
+#     uvicorn.run(debug=True)
