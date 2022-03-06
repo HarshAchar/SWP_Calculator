@@ -1,6 +1,6 @@
 import pandas as pd
 import re
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
 from babel.numbers import format_currency
 
