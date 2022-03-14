@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/responsive.css" type="text/css" />
     <title>SWP - Systematic Withdrawal Plan</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
@@ -49,7 +50,10 @@
             gap: 0.2rem;
             margin: 15px;
         }
-
+		
+		table{
+			border-collapse: collapse;
+		}
         label {
             justify-self: start;
         }
@@ -58,11 +62,11 @@
             border-radius: 7px;
             border-width: 0.2px;
             outline: none;
-            border-color: rgba(77, 115, 202, 0.5);
+            border-color: rgba(155, 77, 202, 0.5);
         }
 
         .chartBox {
-            width: 55rem;
+            width: 65rem;
             padding: 5px;
             border-radius: 50px;
             border: solid 2px rgb(255, 255, 255);
@@ -74,7 +78,7 @@
             border: 0.1rem solid #4d73ca;
             border-radius: 4px;
             background-color: white;
-            color: 4d73ca;
+            color: 9b4dca;
             cursor: pointer;
             display: inline-block;
             font-size: 15px;
@@ -91,7 +95,7 @@
             border: 0.1rem solid #4d73ca;
             border-radius: 4px;
             background-color: white;
-            color: 4d73ca;
+            color: 9b4dca;
             cursor: pointer;
             display: inline-block;
             font-size: 15px;
@@ -133,11 +137,12 @@
         #table {
             margin-top: 20px;
             margin: auto;
+			border-collapse: collapse;
         }
 
         th, td {
             border: 1px solid black;
-            padding: 2px;
+            padding: 5px;
         }
 
         @media only screen and (max-width: 800px) {
@@ -160,7 +165,7 @@
 
         @media only screen and (max-width: 650px) {
             .chartBox {
-            width: 22rem;
+            width: 98%;
             padding: 5px;
             border-radius: 5px;
             border: solid 2px rgb(255, 255, 255);
@@ -168,7 +173,7 @@
             margin: auto;
             }
             .det-table {
-            width: 200px;
+            width: 95%;
             padding: 2px;
             border-radius: 5px;
             border: solid 2px rgb(255, 255, 255);
@@ -245,7 +250,8 @@
             }).then(resp => resp.json()).then(body => {
                 let JSON_Data1 = JSON.parse(body.output.data);
                 let YAxis = JSON_Data1.map(JD1 => JD1['Balance at End'])
-                let XAxis = JSON_Data1.map(JD1 => JD1.Year+'y '+JD1.Month+'m')
+                let XAxis = YAxis.length;
+                XAxis = Array.from({length: XAxis}, (_, i) => i + 1)
 
             // Define chart properties
             const labels = XAxis; // Adding X labels
@@ -257,7 +263,7 @@
                 {
                     label: [Title_Label], // Serves as 'title' for the chart
                     fill: true,
-                    backgroundColor: "rgba(77, 115, 202, 0.2)",
+                    backgroundColor: "rgba(155, 77, 202, 0.2)",
                     borderColor: "#4d73ca",
                     data: YAxis, // Setting graph values for the Y-Axis
                     fill: true,
@@ -273,7 +279,7 @@
                     tooltip: { // Customize tooltip
                     callbacks: {
                         title: (context)=> {
-                        var title_string = 'Time: '+ context[0]['label'];
+                        var title_string = 'Month: '+ context[0]['label'];
                         return title_string;
                         },
                         label: (context)=> {
@@ -294,7 +300,7 @@
                     x: { // adds a label for X axis
                     title: {
                         display: true,
-                        text: "← Time (in Years and Months) →",
+                        text: "← Months →",
                         color: "#4d73ca",
                     },
                     },
@@ -325,7 +331,7 @@
                     chartStatus.destroy();
                 }
                 const myChart = new Chart(document.getElementById("myChart"), config);
-                document.querySelector('.chartBox').style.borderColor = 'rgba(77, 115, 202, 0.5)';
+                document.querySelector('.chartBox').style.borderColor = 'rgba(77, 115, 202, 0.3)';
                 // Adding table
                 // Add Table description
                 document.getElementById('yearlySpread').textContent = 'Detailed monthly spread';
